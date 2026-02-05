@@ -25,7 +25,6 @@ function updateUIState() {
   }
 }
 
-function handleCheckIn() {
   const q1 = document.querySelector('input[name="q1"]:checked');
   const q2 = document.querySelector('input[name="q2"]:checked');
   const q3 = document.querySelector('input[name="q3"]:checked');
@@ -39,7 +38,16 @@ function handleCheckIn() {
   }
 
   error.classList.remove('show');
-
+function handleCheckIn() {
+  if (checkInBtn) {
+    const originalText = checkInBtn.textContent;
+    checkInBtn.textContent = 'Calculating...';
+    checkInBtn.disabled = true;
+    setTimeout(() => {
+      checkInBtn.textContent = originalText;
+      updateUIState();
+    }, 300);
+  }
   const total =
     parseInt(q1.value, 10) +
     parseInt(q2.value, 10) +
@@ -72,6 +80,7 @@ function displayResult(score) {
   }
 
   result.classList.add('show');
+  result.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 if (checkInBtn) checkInBtn.addEventListener('click', handleCheckIn);
