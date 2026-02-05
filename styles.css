@@ -1,0 +1,260 @@
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #2d3748;
+            font-size: 32px;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #718096;
+            text-align: center;
+            margin-bottom: 32px;
+            font-size: 16px;
+        }
+
+        .question {
+            margin-bottom: 32px;
+        }
+
+        .question-text {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        .likert-scale {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .likert-option {
+            flex: 1;
+            text-align: center;
+        }
+
+        .likert-option input[type="radio"] {
+            display: none;
+        }
+
+        .likert-option label {
+            display: block;
+            padding: 12px 8px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+            color: #4a5568;
+        }
+
+        .likert-option label:hover {
+            border-color: #667eea;
+            background: #f7fafc;
+        }
+
+        .likert-option input[type="radio"]:checked + label {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+            font-weight: 600;
+        }
+
+        .scale-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 12px;
+            color: #718096;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        button {
+            flex: 1;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e0;
+        }
+
+        .result {
+            margin-top: 32px;
+            padding: 24px;
+            border-radius: 12px;
+            display: none;
+        }
+
+        .result.show {
+            display: block;
+        }
+
+        .result.low {
+            background: #fed7d7;
+            border: 2px solid #fc8181;
+        }
+
+        .result.moderate {
+            background: #feebc8;
+            border: 2px solid #f6ad55;
+        }
+
+        .result.strong {
+            background: #c6f6d5;
+            border: 2px solid #68d391;
+        }
+
+        .result h2 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .result.low h2 {
+            color: #c53030;
+        }
+
+        .result.moderate h2 {
+            color: #c05621;
+        }
+
+        .result.strong h2 {
+            color: #2f855a;
+        }
+
+        .score {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 16px 0;
+        }
+
+        .result.low .score {
+            color: #c53030;
+        }
+
+        .result.moderate .score {
+            color: #c05621;
+        }
+
+        .result.strong .score {
+            color: #2f855a;
+        }
+
+        .message {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #2d3748;
+        }
+
+        .error {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-top: 16px;
+            display: none;
+            font-size: 14px;
+        }
+
+        .error.show {
+            display: block;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 24px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .likert-scale {
+                gap: 4px;
+            }
+
+            .likert-option label {
+                padding: 10px 4px;
+                font-size: 12px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+            .progress {
+             margin-top: 12px;
+            font-size: 13px;
+             color: #718096;
+             text-align: center;
+            }
+
+            button:disabled {
+             opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+             box-shadow: none !important;
+            }
+
+            .result {
+            opacity: 0;
+            transform: translateY(6px);
+            transition: opacity 200ms ease, transform 200ms ease;
+            }
+
+            .result.show {
+            opacity: 1;
+            transform: translateY(0);
+            }
+        }
