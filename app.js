@@ -18,6 +18,7 @@ function updateUIState() {
   const allAnswered = answered === 4;
 
   if (checkInBtn) checkInBtn.disabled = !allAnswered;
+
   if (progressText) {
     progressText.textContent = allAnswered
       ? 'Ready to check in.'
@@ -25,37 +26,43 @@ function updateUIState() {
   }
 }
 
+function handleCheckIn() {
+  // Get all answers INSIDE the click handler
   const q1 = document.querySelector('input[name="q1"]:checked');
   const q2 = document.querySelector('input[name="q2"]:checked');
   const q3 = document.querySelector('input[name="q3"]:checked');
   const q4 = document.querySelector('input[name="q4"]:checked');
 
+  // Validate all questions answered
   if (!q1 || !q2 || !q3 || !q4) {
-    error.classList.add('show');
-    result.classList.remove('show');
+    if (error) error.classList.add('show');
+    if (result) result.classList.remove('show');
     updateUIState();
     return;
   }
 
-  error.classList.remove('show');
-function handleCheckIn() {
-  if (checkInBtn) {
-    const originalText = checkInBtn.textContent;
-    checkInBtn.textContent = 'Calculating...';
-    checkInBtn.disabled = true;
-    setTimeout(() => {
-      checkInBtn.textContent = originalText;
-      updateUIState();
-    }, 300);
-  }
-  const total =
-    parseInt(q1.value, 10) +
-    parseInt(q2.value, 10) +
-    parseInt(q3.value, 10) +
-    parseInt(q4.value, 10);
+  if (error) error.classList.remove('show');
 
-  const score = Math.round(((total - 4) / 16) * 100);
-  displayResult(score);
+  // Loading state (visible)
+  const originalText = checkInBtn.textContent;
+  checkInBtn.textContent = 'Calculating...';
+  checkInBtn.disabled = true;
+
+  setTimeout(() => {
+    const total =
+      parseInt(q1.value, 10) +
+      parseInt(q2.value, 10) +
+      parseInt(q3.value, 10) +
+      parseInt(q4.value, 10);
+
+    const score = Math.round(((total - 4) / 16) * 100);
+
+    displayResult(score);
+
+    // Restore button state
+    checkInBtn.textContent = originalText;
+    updateUIState();
+  }, 300);
 }
 
 function displayResult(score) {
@@ -83,9 +90,10 @@ function displayResult(score) {
   result.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
+// Wire up events
 if (checkInBtn) checkInBtn.addEventListener('click', handleCheckIn);
 
-if (resetBtn) {
+if (resetBtn && form) {
   resetBtn.addEventListener('click', function () {
     form.reset();
     result.classList.remove('show');
@@ -98,3 +106,4 @@ if (form) form.addEventListener('change', updateUIState);
 
 // Run once on load
 updateUIState();
+
